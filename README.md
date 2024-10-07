@@ -1,6 +1,30 @@
+Overview
+
+The Customer Reward Points App is a React application that fetches customer transaction data and calculates reward points based on their spending. The application displays a summary of points earned by each customer in a tabular format.
+
+Features
+--Fetches transaction data from a remote API.
+--Calculates reward points based on transaction amounts.
+--Displays a summary of points earned by each customer in a table.
+--Provides error handling for API requests.
+--Shows a loading indicator while data is being fetched.
+
+Technologies Used
+--React js
+--PropTypes
+--CSS
+--Async/Await for data fetching
+
+# Pre-requisites
+-- node
+-- editor (Visual studio code)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+# Install node modules
+### `npm install`
 
 ## Available Scripts
 
