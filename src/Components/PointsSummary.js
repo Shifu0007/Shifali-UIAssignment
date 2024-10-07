@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './PointsSummary.css';
 
@@ -8,15 +8,6 @@ import './PointsSummary.css';
  * @param {Array} props.customers - List of customer points
  */
 const PointsSummary = ({ customers }) => {
-  const renderedRows = useMemo(() => {
-    return customers.map(customer => (
-      <tr key={customer.customerId}>
-        <td>Customer {customer.customerId}</td>
-        <td>{customer.points}</td>
-      </tr>
-    ));
-  }, [customers]); // Only re-compute when `customers` changes
-
   return (
     <table className="points-summary-table">
       <thead>
@@ -26,7 +17,12 @@ const PointsSummary = ({ customers }) => {
         </tr>
       </thead>
       <tbody>
-        {renderedRows}
+        {customers.map(customer => (
+          <tr key={customer.customerId}>
+            <td>Customer {customer.customerId}</td>
+            <td>{customer.points}</td>
+          </tr>
+        ))}
       </tbody>
     </table>
   );
