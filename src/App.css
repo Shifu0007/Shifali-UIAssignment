@@ -1,31 +1,45 @@
+/* src/App.css */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif; /* Set a clean font for the body */
+  background-color: #f4f4f4; /* Light background for better contrast */
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App-header {
+  background-color: #282c34; /* Dark header for contrast */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 20px; /* Add padding for spacing */
+  border-bottom: 4px solid #61dafb; /* Bottom border for the header */
+}
+
+.App-title {
+  font-size: 2.5rem; /* Larger title size */
+  margin-bottom: 20px; /* Spacing below the title */
+}
+
+.alert {
+  color: #721c24; /* Alert text color */
+  background-color: #f8d7da; /* Alert background color */
+  border-color: #f5c6cb; /* Alert border color */
+  padding: 15px; /* Padding for alert */
+  border-radius: 5px; /* Rounded corners for alert */
+  margin: 20px auto; /* Center the alert */
+  width: 80%; /* Set a width for alert */
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 @keyframes App-logo-spin {
@@ -36,3 +50,6 @@
     transform: rotate(360deg);
   }
 }
+
+/* Styles for PointsSummary */
+

@@ -1,24 +1,30 @@
 .points-summary-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-  }
-  
-  .points-summary-table th, .points-summary-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .points-summary-table th {
-    background-color: #f2f2f2;
-  }
-  
-  .points-summary-table tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .points-summary-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: white;
+  color: black;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.points-summary-table th, .points-summary-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.points-summary-table th {
+  background-color: #61dafb; /* Light blue background for header */
+  color: #333;
+  font-weight: bold; /* Bold header text */
+}
+
+.points-summary-table tr:nth-child(even) {
+  background-color: #f9f9f9; /* Zebra striping for table rows */
+}
+
+.points-summary-table tr:hover {
+  background-color: #e0f7fa; /* Highlight row on hover */
+}
   

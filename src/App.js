@@ -1,47 +1,54 @@
-import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
-import App from './App';
+// src/App.js
+import React, { useEffect, useState } from 'react';
+import PointsSummary from './Components/PointsSummary';
 import { fetchTransactions } from './Api/Transactions';
 import { calculatePoints } from './Utils/CalculatePoints';
+import './App.css';
 
-// Mock the API and calculatePoints utility
-jest.mock('./Api/Transactions');
-jest.mock('./Utils/CalculatePoints');
+const App = () => {
+  const [customers, setCustomers] = useState([]);
+  const [error, setError] = useState(null);
 
-describe('App Component', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const result = await fetchTransactions();
+        const pointsData = result.map(transaction => ({
+          customerId: transaction.customerId,
+          points: calculatePoints(transaction.amount),
+        }));
 
-  test('renders loading state initially', () => {
-    render(<App />);
-    expect(screen.getByText(/Loading/i)).toBeInTheDocument();
-  });
-
-  test('renders error state when fetch fails', async () => {
-    fetchTransactions.mockRejectedValue(new Error('Network Error'));
+        const aggregatedPoints = pointsData.reduce((acc, curr) => {
+          const existingCustomer = acc.find(c => c.customerId === curr.customerId);
+          if (existingCustomer) {
+            existingCustomer.points += curr.points;
+          } else {
+            acc.push({ customerId: curr.customerId, points: curr.points });
+          }
+          return acc;
+        }, []);
+        
+        setCustomers(aggregatedPoints);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
     
-    render(<App />);
+    loadData();
+  }, []);
 
-    await waitFor(() => expect(screen.getByText(/Error: Network Error/i)).toBeInTheDocument());
-  });
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1 className="my-4">Customer Reward Points</h1>
+        {error ? (
+          <div className="alert alert-danger">{error}</div>
+        ) : (
+          <PointsSummary customers={customers} />
+        )}
+      </header>
+    </div>
+  );
+};
 
-  test('renders customer points summary when fetch is successful', async () => {
-    const mockData = [
-      { customerId: '1', amount: 120 },
-      { customerId: '2', amount: 80 },
-      { customerId: '1', amount: 50 },
-    ];
-
-    fetchTransactions.mockResolvedValue(mockData);
-    calculatePoints.mockImplementation((amount) => amount > 100 ? amount - 100 : 0);
-
-    render(<App />);
-
-    await waitFor(() => {
-      expect(screen.getByText(/Rewards Program/i)).toBeInTheDocument();
-      expect(screen.getByText(/Customer 1: 70 Points/i)).toBeInTheDocument(); // 120 - 100 + 50 - 100 = 70
-      expect(screen.getByText(/Customer 2: 0 Points/i)).toBeInTheDocument(); // 80 <= 100 = 0
-    });
-  });
-});
+export default App;
